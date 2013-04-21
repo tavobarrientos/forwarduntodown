@@ -6,9 +6,12 @@ import socket
 import asyncore
 
 def main():
-    print "Iniciando servidor....."
-    svr = AsyncServer(socket.gethostname(), 8000)
-    asyncore.loop()
+	try:
+	    print "Iniciando servidor....."
+	    svr = AsyncServer('', 8000)
+	    asyncore.loop()
+	except KeyboardInterrupt:
+		print "Bye"
 
 if __name__ == "__main__":
     main()

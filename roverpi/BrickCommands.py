@@ -11,6 +11,7 @@ class BrickCommands:
 		self.nxtbrick = brick;
 		self.LeftMotor = Motor(brick, PORT_B)
 		self.RightMotor = Motor(brick, PORT_C)
+		self.BothMotors = Motor(brick, PORT_ALL)
 	
 	def ExecuteCommand(self, cmd):
 		if cmd == "fwd":
@@ -21,7 +22,11 @@ class BrickCommands:
 			self.left(self.nxtbrick, 360)
 		elif cmd == "rgt":
 			self.right(self.nxtbrick, 360)
-				
+		elif cmd == "rotatel":
+			self.left(self.nxtbrick, 360)
+		elif cmd == "rotater":
+			self.right(self.nxtbrick, 360)
+	
 	def forward(self, brick, duration):
 		self.MovementCmd(100, 100, duration)
 	
@@ -29,10 +34,10 @@ class BrickCommands:
 		self.MovementCmd(-100, -100, duration)
 	
 	def left(self, brick, duration):
-		self.MovementCmd(-100, 100, duration)
+		self.MovementCmd(100, -100, duration)
 	
 	def right(self, brick, duration):
-		self.MovementCmd(100, -100, duration)
+		self.MovementCmd(-100, 100, duration)
 
 	def MovementCmd(self, directionl, directionr, duration):
 		try:
@@ -42,6 +47,24 @@ class BrickCommands:
 			return '=('
 		return 'OK'
 
+	def RunForward(self):
+		self.BothMotors.run()
+
+	def RunBackwards(self):
+		self.BothMotors.run(-100)
+	
+	def RunLeft(self):
+		self.LeftMotor.run(-100)
+		self.RightMotor.run(100)
+
+	def RunRight(self):
+		self.LeftMotor.run(100)
+		self.RightMotor.run(-100)
+	
+	def Stop(self):
+		self.LeftMotor.stop(1)
+		self.RightMotor.stop(1)
+		
 
 class BrickHelper:
 	def GetAvailableBrick(self):

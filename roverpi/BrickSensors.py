@@ -1,4 +1,4 @@
-import nxt.sensors
+import nxt.sensor
 
 """
 	Get Brick Sensors configured for my current brick
@@ -6,10 +6,9 @@ import nxt.sensors
 
 class BrickSensors:
 
-	def __init__(self):
+	def __init__(self, brick):
 		self.light = LightSensor(brick, PORT_2)
 		self.sonic = UltrasonicSensor(brick, PORT_3)
-		self.touch = TouchSensor(brick, PORT_1)
 
 	def GetLightSensorSample(brick):
 		return self.light.get_sample()
@@ -17,6 +16,4 @@ class BrickSensors:
 	def GetUltrasonicSensorSample(brick):
 		return self.sonic.get_sample()
 	
-	def GetTouchSensorSample(brick):
-		return self.touch.get_sample()
 	
